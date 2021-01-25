@@ -42,6 +42,9 @@
     "nativeLanguage": "en",
     "creationTimestamp": 1611606849913,
     "jwtSecretKey": "NTg4Y2YyYzdjYjI0YjliYjRkZDg1ZTVkOTJkYWRhNGM0Y2NkMjRjYzhiYjk4YWM3NTQzZmM2NTZjZWJmMzg5NmQxMGI0Mzk5NTQ5ODA1ZmUyZjNkZTAyYzAxODkxNTAyYjM0YWYyYjI1N2E2YzVkYWJiNTZjNmI2ODAyZmZhOWQ=",
-    "lastLiquibaseTimestamp": 1611607329000
+    "lastLiquibaseTimestamp": 1611607329000,
+    "herokuAppName": "jh-sample-app-react-native-api",
+    "herokuDeployType": "jar",
+    "herokuJavaVersion": "11"
   }
 }
