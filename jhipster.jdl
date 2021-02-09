@@ -1,0 +1,128 @@
+application {
+  config {
+    applicationType monolith
+    authenticationType jwt
+    baseName jhipster
+    blueprints []
+    buildTool maven
+    cacheProvider ehcache
+    clientFramework angularX
+    clientPackageManager npm
+    clientTheme none
+    creationTimestamp 1611606849913
+    databaseType sql
+    devDatabaseType h2Disk
+    dtoSuffix DTO
+    enableHibernateCache true
+    enableSwaggerCodegen false
+    enableTranslation true
+    jhiPrefix jhi
+    jhipsterVersion "7.0.0-beta.1"
+    jwtSecretKey "NTg4Y2YyYzdjYjI0YjliYjRkZDg1ZTVkOTJkYWRhNGM0Y2NkMjRjYzhiYjk4YWM3NTQzZmM2NTZjZWJmMzg5NmQxMGI0Mzk5NTQ5ODA1ZmUyZjNkZTAyYzAxODkxNTAyYjM0YWYyYjI1N2E2YzVkYWJiNTZjNmI2ODAyZmZhOWQ="
+    languages [en]
+    messageBroker false
+    nativeLanguage en
+    otherModules []
+    packageName com.mycompany.myapp
+    prodDatabaseType postgresql
+    reactive false
+    searchEngine false
+    serverPort 8080
+    serviceDiscoveryType false
+    skipClient true
+    skipServer false
+    skipUserManagement false
+    testFrameworks []
+    websocket false
+    withAdminUi true
+  }
+
+  entities Country, Department, Employee, Job, JobHistory, Location, Region, Task
+}
+
+entity Country {
+  countryName String
+}
+entity Department {
+  departmentName String required
+}
+/**
+ * The Employee entity.
+ */
+entity Employee {
+  /**
+   * The firstname attribute.
+   */
+  firstName String
+  lastName String
+  email String
+  phoneNumber String
+  hireDate Instant
+  salary Long
+  commissionPct Long
+}
+entity Job {
+  jobTitle String
+  minSalary Long
+  maxSalary Long
+}
+entity JobHistory {
+  startDate Instant
+  endDate Instant
+  language Language
+}
+/**
+ * not an ignored comment
+ */
+entity Location {
+  streetAddress String
+  postalCode String
+  city String
+  stateProvince String
+}
+entity Region {
+  regionName String
+}
+/**
+ * Task entity.\n@author The JHipster team.
+ */
+entity Task {
+  title String
+  description String
+}
+enum Language {
+  FRENCH,
+  ENGLISH,
+  SPANISH
+}
+
+relationship OneToOne {
+  JobHistory{job} to Job
+  JobHistory{department} to Department
+  JobHistory{employee} to Employee
+}
+relationship OneToMany {
+  /**
+   * A relationship
+   */
+  Department{employee(email)} to
+  /**
+   * Another side of the same relationship
+   */
+  Employee{department(departmentName)}
+  Employee{job(jobTitle)} to Job{employee(email)}
+}
+relationship ManyToOne {
+  Country{region(regionName)} to Region
+  Department{location(streetAddress)} to Location
+  Employee{manager} to Employee
+  Location{country(countryName)} to Country
+}
+relationship ManyToMany {
+  Job{task(title)} to Task{job(jobTitle)}
+}
+
+dto Country, Department, Employee, Job, JobHistory, Location, Region, Task with mapstruct
+service Country, Department, Employee, Job, JobHistory, Location, Region, Task with serviceClass
+paginate Employee, JobHistory with infinite-scroll
+paginate Job with pagination
